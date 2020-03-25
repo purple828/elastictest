@@ -1,11 +1,11 @@
 package com.example.flj.elastictest.controller;
 
 import com.example.flj.elastictest.model.DocBean;
+import com.example.flj.elastictest.model.SearchReq;
 import com.example.flj.elastictest.service.IElasticService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -37,6 +37,12 @@ public class ElasticController {
     @GetMapping("/all")
     public Iterator<DocBean> all(){
         return elasticService.findAll();
+    }
+
+    @PostMapping("/findByContent")
+    public Page<DocBean> findByContent(@RequestBody SearchReq req){
+        System.out.println("-----");
+        return elasticService.findByContent(req.getContent());
     }
 
 }
